@@ -1,40 +1,29 @@
 package com.tripmate.auth_service.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import lombok.*;
-
-import java.time.LocalDateTime;
+import lombok.Data;
 
 @Entity
-@Table(name = "Users")
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Builder
+@Table(name = "users")
+@Data
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name", nullable = false)
-    private String userName;
+    @Column(nullable = false)
+    private String name;
 
-    @Email
-    @Column(name = "user_email", nullable = false, unique = true)
-    private String userEmail;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    @Column(name = "user_password", nullable = false)
-    private String userPassword;
+    @Column(nullable = false)
+    private String password;
 
-    @Column(name = "origin_country", nullable = false)
+    @Column(nullable = false, unique = false)
     private String origin_country;
 
-    @Column(name = "phone_number", length = 15)
+    @Column(name = "phone_number", nullable = false, length = 15)
     private String phoneNumber;
-
-
-
 }
