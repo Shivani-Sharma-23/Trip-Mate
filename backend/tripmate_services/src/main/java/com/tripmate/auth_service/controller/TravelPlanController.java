@@ -26,4 +26,11 @@ public class TravelPlanController {
 
         return ResponseEntity.ok(savedPlan);
     }
+
+    @PutMapping("/deactivate/{planId}")
+    public ResponseEntity<String> deactivatePlan(@PathVariable Long planId) {
+
+        travelPlanService.deactivatePlan(planId);
+        return ResponseEntity.ok("Travel plan deactivated successfully");
+    }
 }

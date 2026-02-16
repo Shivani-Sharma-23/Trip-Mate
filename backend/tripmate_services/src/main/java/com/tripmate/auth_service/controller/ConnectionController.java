@@ -19,9 +19,9 @@ public class ConnectionController {
 
     @GetMapping("/match/{userId}/{origin}/{destination}")
     public ResponseEntity<List<MatchedTravellerDTO>> getMatches(
-            @PathVariable Long userId,
-            @PathVariable String origin,
-            @PathVariable String destination) {
+            @RequestParam Long userId,
+            @RequestParam String origin,
+            @RequestParam String destination) {
 
         return ResponseEntity.ok(
                 connectionService.findMatches(userId,origin, destination)
