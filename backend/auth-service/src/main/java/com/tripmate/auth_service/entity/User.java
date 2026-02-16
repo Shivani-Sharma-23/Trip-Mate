@@ -24,6 +24,6 @@ public class User {
     @Column(nullable = false, unique = false)
     private String origin_country;
 
-    @Column(name = "phone_number", nullable = false, length = 15)
+    @Column(name = "phone_number", unique = true, nullable = false, length = 15)
     private String phoneNumber;
 }

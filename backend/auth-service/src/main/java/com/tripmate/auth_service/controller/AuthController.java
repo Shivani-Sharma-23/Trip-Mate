@@ -1,5 +1,6 @@
 package com.tripmate.auth_service.controller;
 
+import com.tripmate.auth_service.config.JwtUtil;
 import com.tripmate.auth_service.dto.LoginRequest;
 import com.tripmate.auth_service.entity.User;
 import com.tripmate.auth_service.service.AuthService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final JwtUtil jwtUtil;
+
 
     @GetMapping("/api/secure")
     public ResponseEntity<String> secure() {
@@ -21,6 +24,21 @@ public class AuthController {
         return ResponseEntity.ok("Access granted");
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteUser(
+            @RequestHeader("Authorization") String header) {
+
+        if (header == null || !header.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body("Invalid token");
+        }
+
+        String token = header.substring(7);
+        String email = jwtUtil.extractUsername(token);
+
+        authService.deleteUser(email);
+
+        return ResponseEntity.ok("User deleted successfully");
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody User user) {
